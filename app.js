@@ -1,4 +1,9 @@
 require("dotenv").config();
+//swagger
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./swagger.yaml");
+
 //express
 const express = require("express");
 const app = express();
@@ -17,7 +22,7 @@ app.use(
   rateLimiter({
     windowMs: 15 * 60 * 1000,
     max: 60,
-  }),
+  })
 );
 app.use(helmet());
 app.use(cors());
@@ -58,6 +63,7 @@ app.use("/api/v1/orders", orderRouter);
 app.get("/api/v1/", (req, res) => {
   res.send("Homepage");
 });
+app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddlware);

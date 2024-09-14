@@ -1,0 +1,663 @@
+openapi: 3.0.0
+info:
+  title: eCommerce API
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://ecommerce-xds1.onrender.com/api/v1
+    variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+        - auth
+      summary: REGISTER
+      operationId: REGISTER
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/REGISTERREQUEST"
+            example:
+              name: Eric
+              email: moroiueric@yahoo.com
+              password: parola123
+        required: true
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: LOGIN
+      operationId: LOGIN
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/LOGINREQUEST"
+            example:
+              email: flavius.paltin@yahoo.com
+              password: parola123
+        required: true
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /auth/logout:
+    get:
+      tags:
+        - auth
+      summary: LOGOUT
+      operationId: LOGOUT
+      parameters: []
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /products:
+    get:
+      tags:
+        - product
+      summary: GET ALL PRODUCTS
+      operationId: GETALLPRODUCTS
+      parameters: []
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+    post:
+      tags:
+        - product
+      summary: CREATE PRODUCT
+      operationId: CREATEPRODUCT
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CREATEPRODUCTREQUEST"
+            example:
+              name: accent chair
+              price: 25999
+              image: https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160
+              colors:
+                - "#ff0000"
+                - "#00ff00"
+                - "#0000ff"
+              company: marcos
+              description: Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf.
+              category: office
+        required: true
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /products/{id}:
+    get:
+      tags:
+        - product
+      summary: GET REVIEWS SINGLE PRODUCT
+      operationId: GETREVIEWSSINGLEPRODUCT
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+    patch:
+      tags:
+        - product
+      summary: UPDATE PRODUCT
+      operationId: UPDATEPRODUCT
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+    delete:
+      tags:
+        - product
+      summary: DELETE PRODUCT
+      operationId: DELETEPRODUCT
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /products/uploadImage:
+    post:
+      tags:
+        - product
+      summary: UPLOAD IMAGE
+      operationId: UPLOADIMAGE
+      parameters: []
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding: {}
+            schema:
+              required:
+                - image
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+        required: false
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /reviews:
+    get:
+      tags:
+        - review
+      summary: GET ALL REVIEWS
+      operationId: GETALLREVIEWS
+      parameters: []
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+    post:
+      tags:
+        - review
+      summary: CREATE REVIEW
+      operationId: CREATEREVIEW
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CREATEREVIEWREQUEST"
+            example:
+              product: 66e5c2483faf84950f7ca0a9
+              rating: 1
+              title: Bad Product
+              comment: very very bad product
+        required: true
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /reviews/{id}:
+    get:
+      tags:
+        - review
+      summary: GET SINGLE REVIEW
+      operationId: GETSINGLEREVIEW
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+    patch:
+      tags:
+        - review
+      summary: UPDATE REVIEW
+      operationId: UPDATEREVIEW
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UPDATEREVIEWREQUEST"
+            example:
+              comment: Not that bad
+              rating: 3.5
+        required: true
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+    delete:
+      tags:
+        - review
+      summary: DELETE REVIEW
+      operationId: DELETEREVIEW
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /orders:
+    get:
+      tags:
+        - order
+      summary: GET ALL ORDERS
+      operationId: GETALLORDERS
+      parameters: []
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+    post:
+      tags:
+        - order
+      summary: CREATE ORDER
+      operationId: CREATEORDER
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CREATEORDERREQUEST"
+            example:
+              tax: 399
+              shippingFee: 499
+              items:
+                - name: accent chair
+                  price: 2599
+                  image: https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160
+                  amount: 3
+                  product: 66e5c2483faf84950f7ca0a9
+        required: true
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /orders/showAllMyOrders:
+    get:
+      tags:
+        - order
+      summary: ORDERS BY THE USER
+      operationId: ORDERSBYTHEUSER
+      parameters: []
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /orders/{id}:
+    get:
+      tags:
+        - order
+      summary: GET SINGLE ORDER
+      operationId: GETSINGLEORDER
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+    patch:
+      tags:
+        - order
+      summary: UPDATE ORDER
+      operationId: UPDATEORDER
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /users:
+    get:
+      tags:
+        - user
+      summary: GET ALL USERS
+      operationId: GETALLUSERS
+      parameters: []
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /users/{id}:
+    get:
+      tags:
+        - user
+      summary: GET SINGLE USER
+      operationId: GETSINGLEUSER
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /users/showMe:
+    get:
+      tags:
+        - user
+      summary: SHOW CURRENT USER
+      operationId: SHOWCURRENTUSER
+      parameters: []
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /users/updateUser:
+    patch:
+      tags:
+        - user
+      summary: UPDATE USER
+      operationId: UPDATEUSER
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UPDATEUSERREQUEST"
+            example:
+              name: flavius
+              email: flavius.paltin@yahoo.com
+        required: true
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+  /users/updateUserPassword:
+    patch:
+      tags:
+        - user
+      summary: UPDATE USER PASSWORD
+      operationId: UPDATEUSERPASSWORD
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UPDATEUSERPASSWORDREQUEST"
+            example:
+              oldPassword: parola1234
+              newPassword: parola123
+        required: true
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+
+components:
+  schemas:
+    REGISTERREQUEST:
+      title: REGISTERREQUEST
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Eric
+        email: moroiueric@yahoo.com
+        password: parola123
+
+    LOGINREQUEST:
+      title: LOGINREQUEST
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: flavius.paltin@yahoo.com
+        password: parola123
+
+    CREATEPRODUCTREQUEST:
+      title: CREATEPRODUCTREQUEST
+      required:
+        - name
+        - price
+        - image
+        - colors
+        - company
+        - description
+        - category
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        image:
+          type: string
+        colors:
+          type: array
+          items:
+            type: string
+          description: ""
+        company:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+      example:
+        name: accent chair
+        price: 25999
+        image: https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160
+        colors:
+          - "#ff0000"
+          - "#00ff00"
+          - "#0000ff"
+        company: marcos
+        description: Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf.
+        category: office
+
+    CREATEREVIEWREQUEST:
+      title: CREATEREVIEWREQUEST
+      required:
+        - product
+        - rating
+        - title
+        - comment
+      type: object
+      properties:
+        product:
+          type: string
+        rating:
+          type: integer
+          format: int32
+        title:
+          type: string
+        comment:
+          type: string
+      example:
+        product: 66e5c2483faf84950f7ca0a9
+        rating: 1
+        title: Bad Product
+        comment: very very bad product
+
+    UPDATEREVIEWREQUEST:
+      title: UPDATEREVIEWREQUEST
+      required:
+        - comment
+        - rating
+      type: object
+      properties:
+        comment:
+          type: string
+        rating:
+          type: number
+      example:
+        comment: Not that bad
+        rating: 3.5
+
+    CREATEORDERREQUEST:
+      title: CREATEORDERREQUEST
+      required:
+        - tax
+        - shippingFee
+        - items
+      type: object
+      properties:
+        tax:
+          type: integer
+          format: int32
+        shippingFee:
+          type: integer
+          format: int32
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Item"
+          description: ""
+      example:
+        tax: 399
+        shippingFee: 499
+        items:
+          - name: accent chair
+            price: 2599
+            image: https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160
+            amount: 3
+            product: 66e5c2483faf84950f7ca0a9
+
+    Item:
+      title: Item
+      required:
+        - name
+        - price
+        - image
+        - amount
+        - product
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        image:
+          type: string
+        amount:
+          type: integer
+          format: int32
+        product:
+          type: string
+      example:
+        name: accent chair
+        price: 2599
+        image: https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160
+        amount: 3
+        product: 66e5c2483faf84950f7ca0a9
+
+    UPDATEUSERREQUEST:
+      title: UPDATEUSERREQUEST
+      required:
+        - name
+        - email
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+      example:
+        name: flavius
+        email: flavius.paltin@yahoo.com
+
+    UPDATEUSERPASSWORDREQUEST:
+      title: UPDATEUSERPASSWORDREQUEST
+      required:
+        - oldPassword
+        - newPassword
+      type: object
+      properties:
+        oldPassword:
+          type: string
+        newPassword:
+          type: string
+      example:
+        oldPassword: parola1234
+        newPassword: parola123
+
+tags:
+  - name: auth
+  - name: product
+  - name: review
+  - name: order
+  - name: user
